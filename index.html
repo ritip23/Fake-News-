@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fake News Detector - Newspaper Style</title>
+    <style>
+        body {
+            font-family: 'Times New Roman', serif;
+            margin: 0;
+            padding: 20px;
+            background: url('https://source.unsplash.com/1600x900/?newspaper,news') no-repeat center center fixed;
+            background-size: cover;
+            background-image: url('https://files.oaiusercontent.com/file-Lqx6sxx8snQRa2S1WaGtWx?se=2025-03-11T04%3A47%3A09Z&sp=r&sv=2024-08-04&sr=b&rscc=max-age%3D604800%2C%20immutable%2C%20private&rscd=attachment%3B%20filename%3D7c90e8df-d6da-4ef1-93e9-23c812f03956.webp&sig=6qa/P45CE5SeyRhr%2BwFF/96iN8qqWEJA8HH4/CzR3Oc%3D');
+        }
+        .container {
+            max-width: 900px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            margin: auto;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+        }
+        .header {
+            text-align: center;
+            font-size: 2.5em;
+            font-weight: bold;
+            text-transform: uppercase;
+            border-bottom: 3px solid black;
+            padding-bottom: 10px;
+        }
+        .news-input {
+            width:  calc(100% - 30px);
+            padding: 15px;
+            margin-top: 15px;
+            font-size: 1.1em;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background: #333;
+            color: white;
+            font-size: 1.3em;
+            text-transform: uppercase;
+            cursor: pointer;
+            margin-top: 15px;
+            border: none;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+        .btn:hover {
+            background: #555;
+        }
+        .news-container {
+            margin-top: 20px;
+            padding: 20px;
+            font-size: 1.5em;
+            font-weight: bold;
+            text-align: center;
+            border-radius: 5px;
+        }
+        .real-news {
+            color: green;
+            background: #dff0d8;
+            border: 2px solid green;
+        }
+        .fake-news {
+            color: red;
+            background: #f8d7da;
+            border: 2px solid red;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">Fake News Detector</div>
+        <textarea id="newsText" class="news-input" rows="6" placeholder="Paste your news article here..."></textarea>
+        <button class="btn" onclick="analyzeNews()">Check News</button>
+        <div id="newsResult" class="news-container"></div>
+    </div>
+
+    <script>
+        function analyzeNews() {
+            const newsText = document.getElementById('newsText').value;
+            const resultDiv = document.getElementById('newsResult');
+            if (newsText.trim() === '') {
+                alert("Please enter some text!");
+                return;
+            }
+            
+            // Mock AI-based detection (Replace this with backend API call)
+            const isFake = Math.random() > 0.5; // Random result for demo
+            
+            resultDiv.innerHTML = `<p class="news-container ${isFake ? 'fake-news' : 'real-news'}">
+                ${isFake ? '🚨 FAKE NEWS DETECTED! 🚨' : '✅ REAL NEWS CONFIRMED! ✅'}
+            </p>`;
+        }
+    </script>
+</body>
+</html>

@@ -114,7 +114,7 @@ def analyze_sensationalism():
     data = pd.read_csv(file_path)
 
     def detect_sensationalism(text):
-        sensational_keywords = ["shocking", "outrageous", "unbelievable", "mind-blowing", "explosive"]
+        sensational_keywords = ["shocking", "outrageous", "unbelievable", "mind-blowing", "explosive","must-watch", "terrifying", "secret reveal"]
         if pd.isna(text):
             return False
         return any(re.search(r'\b' + kw + r'\b', text, re.IGNORECASE) for kw in sensational_keywords)

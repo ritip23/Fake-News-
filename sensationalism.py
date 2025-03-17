@@ -21,7 +21,7 @@ print(data.head())
 
 # Function to detect sensationalism in news text
 def detect_sensationalism(text):
-    sensational_keywords = ["shocking", "outrageous", "unbelievable", "mind-blowing", "explosive"]
+    sensational_keywords = ["shocking", "outrageous", "unbelievable", "mind-blowing", "explosive", "must-watch", "terrifying", "secret reveal"]
     if pd.isna(text):
         return False
     for keyword in sensational_keywords:

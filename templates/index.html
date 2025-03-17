@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fake News Detector - Newspaper Style</title>
+    <title>Fake News Detector</title>
     <style>
         body {
             font-family: 'Times New Roman', serif;
@@ -11,7 +11,7 @@
             padding: 20px;
             background: url('https://source.unsplash.com/1600x900/?newspaper,news') no-repeat center center fixed;
             background-size: cover;
-            background-image: url('https://files.oaiusercontent.com/file-Lqx6sxx8snQRa2S1WaGtWx?se=2025-03-11T04%3A47%3A09Z&sp=r&sv=2024-08-04&sr=b&rscc=max-age%3D604800%2C%20immutable%2C%20private&rscd=attachment%3B%20filename%3D7c90e8df-d6da-4ef1-93e9-23c812f03956.webp&sig=6qa/P45CE5SeyRhr%2BwFF/96iN8qqWEJA8HH4/CzR3Oc%3D');
+            background-image: url('https://files.oaiusercontent.com/file-9Q4amEcYyg6RFMXjJTy2oE?se=2025-03-17T11%3A13%3A10Z&sp=r&sv=2024-08-04&sr=b&rscc=max-age%3D604800%2C%20immutable%2C%20private&rscd=attachment%3B%20filename%3D97d5fea4-5cc0-4353-8c2e-95f09dce6626.webp&sig=oAPxtRp/ZIyHIdyyESN2v9C7zvLE1c4gaauAZqc8Xsg%3D');
         }
         .container {
             max-width: 900px;
@@ -30,7 +30,7 @@
             padding-bottom: 10px;
         }
         .news-input {
-            width:  calc(100% - 30px);
+            width: calc(100% - 30px);
             padding: 15px;
             margin-top: 15px;
             font-size: 1.1em;
@@ -86,18 +86,30 @@
         function analyzeNews() {
             const newsText = document.getElementById('newsText').value;
             const resultDiv = document.getElementById('newsResult');
+    
             if (newsText.trim() === '') {
                 alert("Please enter some text!");
                 return;
             }
-            
-            // Mock AI-based detection (Replace this with backend API call)
-            const isFake = Math.random() > 0.5; // Random result for demo
-            
-            resultDiv.innerHTML = `<p class="news-container ${isFake ? 'fake-news' : 'real-news'}">
-                ${isFake ? '🚨 FAKE NEWS DETECTED! 🚨' : '✅ REAL NEWS CONFIRMED! ✅'}
-            </p>`;
+    
+            fetch('/predict', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ news: newsText })
+            })
+            .then(response => response.json())
+            .then(data => {
+                resultDiv.innerHTML = `<p class="news-container ${data.prediction.includes('Fake') ? 'fake-news' : 'real-news'}">
+                    ${data.prediction.includes('Fake') ? '🚨 FAKE NEWS DETECTED! 🚨' : '✅ REAL NEWS CONFIRMED! ✅'}
+                </p>`;
+            })
+            .catch(error => {
+                console.error('Fetch Error:', error);
+                resultDiv.innerHTML = `<p style="color: red;">Error: Could not process the request.</p>`;
+            });
         }
     </script>
+    
+    
 </body>
 </html>
